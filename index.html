@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    
-    
     <title>星野-蔚蓝档案美图分享</title>
         
     <!-- Manifest -->
@@ -18,8 +16,33 @@
     <!-- Icons for browser tab -->
     <link rel="icon" href="/img/00.png" sizes="192x192">
     
+    <!-- 核心功能：年龄验证脚本 -->
+    <script>
+        // 页面加载完成后立即执行年龄验证
+        window.onload = function() {
+            while (true) {
+                // 弹出输入框，要求输入大于10086的年龄
+                const inputAge = prompt('请输入你的年龄（需大于10086岁）：');
+                
+                // 处理点击“取消”的情况
+                if (inputAge === null) {
+                    alert('验证未通过，无法访问页面！');
+                    window.location.reload(); // 刷新或可改为跳转其他地址
+                    break;
+                }
 
-    
+                // 转换为数字并验证
+                const age = Number(inputAge);
+                if (!isNaN(age) && age > 10086) {
+                    alert('验证通过，欢迎进入！');
+                    break; // 验证通过，退出循环显示页面
+                } else {
+                    alert('年龄错误！必须输入大于10086的数字！');
+                }
+            }
+        };
+    </script>
+
     <style>
     
         body {
@@ -35,7 +58,6 @@ background-color: #000000; /* 纯黑 */
             padding: 0;
             overflow-x: hidden;
         }
-        
         
  /* 顶部图片样式 */
         #top-image-container {
@@ -257,7 +279,7 @@ background-color: #000000; /* 纯黑 */
 </div>
 
 
-<p>2026年2月</p><div class='section media-row hide-scrollbar'>
+<p>2026年3月</p><div class='section media-row hide-scrollbar'>
 <img data-src='img/00023.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
 <img data-src='img/00024.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
 <img data-src='img/00025.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
@@ -403,71 +425,3 @@ function switchMedia(step) {
         });
 
         // 移动端滑动切换图片/视频
-if (isTouchDevice) {
-    let startX;
-    const fullscreen = document.getElementById('fullscreen');
-    const img = document.getElementById('fullscreen-image'); // 获取全屏显示的图片
-
-    fullscreen.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-    });
-
-    fullscreen.addEventListener('touchmove', (e) => {
-    // 只处理单点触控
-    if (e.touches.length !== 1) return;
-
-    if (!startX) return;
-
-    const touchX = e.touches[0].clientX;
-    const diffX = touchX - startX;  // 计算滑动距离
-
-    if (Math.abs(diffX) > 60) {
-        if (diffX < 0) {
-            slideImage(1);  // 向右滑动，显示前一张
-        } else {
-            slideImage(-1);   // 向左滑动，显示后一张
-        }
-        startX = null;  // 重置起始点
-    }
-    
-    });
-
-    fullscreen.addEventListener('touchend', () => {
-        startX = null;  // 滑动结束后重置
-    });
-
-    // 添加平移图片效果的函数
-// 添加平移图片效果的函数
-// 添加平移图片效果的函数
-function slideImage(direction) {
-    // 开始平移当前图片
-    img.style.transition = 'transform 0.5s ease';  // 让当前图片平移的动画稍长一点（比如0.4秒）
-    img.style.transform = `translateX(${-direction * 100}%)`;  // 当前图片平移出屏幕
-
-    // 设置切换图片的黑色间隙时间
-    setTimeout(() => {
-        switchMedia(direction);  // 切换图片
-
-        // 立即准备下一张图片从另一侧进入
-        img.style.transition = 'none';  // 先禁用过渡效果
-        img.style.transform = `translateX(${direction * 100}%)`;  // 新图片从另一侧准备进入
-
-        // 几乎立即重新启用动画，让新图片平滑进入屏幕
-        setTimeout(() => {
-            img.style.transition = 'transform 1.2s ease';  // 再次启用平滑动画，平移时间保持为0.4秒
-            img.style.transform = 'translateX(0)';  // 新图片平移回中心
-        }, 0);  // 设置非常短的延迟来切换新图片进入
-    }, 450);  // 黑色间隙的持续时间可以单独控制，比如100毫秒
-}
-
-
-}
-
-
-    });
-
-
-</script>
-</body>
-</html>
-
