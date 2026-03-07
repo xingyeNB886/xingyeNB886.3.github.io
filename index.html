@@ -102,11 +102,6 @@
             background: #000;
             z-index: 100;
         }
-        .video-container video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
         .fullscreen {
             display: none;
             position: fixed;
@@ -139,14 +134,8 @@
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
-        @keyframes fadeOut {
-            from {opacity: 1;}
-            to {opacity: 0;}
-        }
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+        @keyframes fadeOut { from {opacity: 1;} to {opacity: 0;} }
         #age-mask {
             position: fixed;
             top: 0; left: 0;
@@ -158,6 +147,7 @@
             align-items: center;
             justify-content: center;
             color: #fff;
+            font-size: 18px;
         }
         #age-input {
             margin: 20px 0;
@@ -175,7 +165,8 @@
 </head>
 <body>
     <div id="age-mask">
-        <input type="number" id="age-input" autocomplete="off">
+        <div>请输入年龄</div>
+        <input type="number" id="age-input" autocomplete="off" placeholder="例如：10086">
     </div>
     <div id="page-content">
         <div id="top-image-container">
@@ -235,7 +226,7 @@
         let currentIndex = 0;
         let mediaItems = [];
         let isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints;
-        
+
         function checkAge() {
             const input = document.getElementById('age-input').value;
             const age = parseInt(input);
@@ -245,7 +236,7 @@
                 document.body.style.pointerEvents = 'auto';
             }
         }
-        
+
         document.getElementById('age-input').addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
                 checkAge();
