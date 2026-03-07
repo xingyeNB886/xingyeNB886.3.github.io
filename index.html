@@ -81,7 +81,16 @@
 
     <div id="main-content">
         <div id="top-image-container"><img id="top-image" src="img/0.png"></div>
-        
+        <p>你最爱的</p>
+        <div class='section media-row hide-scrollbar'>
+            <img 
+    data-src='page/00003.jpg' 
+    class='lazyload' 
+    onclick='openFullscreen(this.dataset.src.replace("page", "video").replace(".jpg", ".mp4"), true)'
+>
+
+            <img data-src='page/00002.jpg' class='lazyload' onclick='openFullscreen("video/2.mp4", true)'>
+            <img data-src='page/00003.jpg' class='lazyload' onclick='openFullscreen("video/3.mp4", true)'>
         <p>作者推荐</p>
         <div class="section media-row hide-scrollbar">
             <img src="img/1.png" onclick="openFullscreen(this.src)">
