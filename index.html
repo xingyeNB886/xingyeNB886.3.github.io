@@ -8,46 +8,64 @@
     <meta name="theme-color" content="#000000">
     <link rel="icon" href="/img/00.png" sizes="192x192">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        #main-content { display: none; }
-        body { background: #000; color: #fff; font-family: Arial, sans-serif; overflow-x: hidden; }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        #main-content{display:none;}
+        body{background:#000;color:#fff;font-family:Arial,sans-serif;overflow-x:hidden;}
         
-        /* 验证层 */
-        #age-verification-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); display: flex; justify-content: center; align-items: center; z-index: 9999;
+        #age-verification-overlay{
+            position:fixed;top:0;left:0;width:100%;height:100%;
+            background:rgba(0,0,0,0.95);display:flex;
+            justify-content:center;align-items:center;z-index:9999;
         }
-        .age-modal { background: #111; padding: 30px; border-radius: 12px; border: 1px solid #333; text-align: center; width: 90%; max-width: 400px; }
-        .age-modal input { width: 100%; padding: 12px; margin: 15px 0; background: #222; border: 1px solid #444; border-radius: 8px; color: #fff; font-size: 18px; text-align: center; }
-        .age-modal button { width: 100%; padding: 12px; border: none; border-radius: 8px; background: #007bff; color: #fff; font-size: 16px; cursor: pointer; }
-        .age-modal button:hover { background: #0056b3; }
-        .age-tooltip { color: #ff4444; margin-top: 10px; font-size: 14px; display: none; }
-
-        /* 页面样式 */
-        #top-image-container { text-align: center; margin: 1em 0; }
-        #top-image { object-fit: cover; display: block; margin: 0 auto; width: auto; height: calc(9/16 * 22vh); border-radius: 10px; }
-        @media (min-width: 1024px) { #top-image { height: calc(9/16 * 36vh); } }
-
-        .section { padding: 5px 20px; }
-        p { text-indent: 2em; margin: 5px 0; }
-        .media-row { display: flex; overflow-x: auto; padding: 5px 0; gap: 10px; cursor: grab; }
-        .media-row img { width: calc(100vw / 3.3 - 15px); aspect-ratio: 3/4; object-fit: cover; border-radius: 5px; cursor: pointer; }
-        @media (min-width: 768px) { .media-row img { width: calc(100vw / 4.3 - 15px); } }
-        @media (min-width: 1024px) { .media-row img { width: calc(100vw / 6.3 - 15px); } }
-        @media (min-width: 1280px) { .media-row img { width: calc(100vw / 10 - 15px); } }
-
-        .fullscreen {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 10000;
+        .age-modal{
+            background:#111;padding:30px;border-radius:12px;
+            border:1px solid #333;text-align:center;width:90%;max-width:400px;
         }
-        .fullscreen img, .fullscreen video { max-width: 95%; max-height: 95%; object-fit: contain; border-radius: 5px; }
-        .fullscreen.active { display: flex; animation: fadeIn 0.3s forwards; }
-        .fullscreen.inactive { display: flex; animation: fadeOut 0.3s forwards; }
+        .age-modal input{
+            width:100%;padding:12px;margin:15px 0;
+            background:#222;border:1px solid #444;border-radius:8px;
+            color:#fff;font-size:18px;text-align:center;
+        }
+        .age-modal button{
+            width:100%;padding:12px;border:none;border-radius:8px;
+            background:#007bff;color:#fff;font-size:16px;cursor:pointer;
+        }
+        .age-modal button:hover{background:#0056b3;}
+        #age-tooltip{color:#ff4444;margin-top:10px;font-size:14px;display:none;}
 
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+        #top-image-container{text-align:center;margin:1em 0;}
+        #top-image{
+            object-fit:cover;display:block;margin:0 auto;
+            width:auto;height:calc(9/16 * 22vh);border-radius:10px;
+        }
+        @media (min-width:1024px){#top-image{height:calc(9/16 * 36vh);}}
+
+        .section{padding:5px 20px;}
+        p{text-indent:2em;margin:5px 0;}
+        .media-row{display:flex;overflow-x:auto;padding:5px 0;gap:10px;cursor:grab;}
+        .media-row img{
+            width:calc(100vw / 3.3 - 15px);aspect-ratio:3/4;
+            object-fit:cover;border-radius:5px;cursor:pointer;
+        }
+        @media (min-width:768px){.media-row img{width:calc(100vw / 4.3 - 15px);}}
+        @media (min-width:1024px){.media-row img{width:calc(100vw / 6.3 - 15px);}}
+        @media (min-width:1280px){.media-row img{width:calc(100vw / 10 - 15px);}}
+
+        .fullscreen{
+            display:none;position:fixed;top:0;left:0;
+            width:100%;height:100%;background:rgba(0,0,0,0.9);
+            justify-content:center;align-items:center;z-index:10000;
+        }
+        .fullscreen img,.fullscreen video{
+            max-width:95%;max-height:95%;object-fit:contain;border-radius:5px;
+        }
+        .fullscreen.active{display:flex;animation:fadeIn .3s forwards;}
+        .fullscreen.inactive{display:flex;animation:fadeOut .3s forwards;}
+
+        .hide-scrollbar{-ms-overflow-style:none;scrollbar-width:none;}
+        .hide-scrollbar::-webkit-scrollbar{display:none;}
+        @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+        @keyframes fadeOut{from{opacity:1;}to{opacity:0;}}
     </style>
 </head>
 <body>
@@ -55,16 +73,17 @@
         <div class="age-modal">
             <h2>身份验证</h2>
             <p>请输入年龄（10086 ≤ 年龄 < 20000）</p>
-            <input type="number" id="age-input" placeholder="输入年龄" min="10086" max="19999">
-            <div class="age-tooltip" id="tip"></div>
+            <input type="number" id="age-input" placeholder="输入年龄">
+            <div id="age-tooltip"></div>
             <button onclick="verifyAge()">确认</button>
         </div>
     </div>
 
     <div id="main-content">
-        <div id="top-image-container"><img id="top-image" src="img/0.png" alt="顶部图"></div>
+        <div id="top-image-container"><img id="top-image" src="img/0.png"></div>
+        
         <p>作者推荐</p>
-        <div class="section media-row hide-scrollbar" id="gallery">
+        <div class="section media-row hide-scrollbar">
             <img src="img/1.png" onclick="openFullscreen(this.src)">
             <img src="img/2.png" onclick="openFullscreen(this.src)">
             <img src="img/3.png" onclick="openFullscreen(this.src)">
@@ -94,8 +113,9 @@
             <img src="img/27.png" onclick="openFullscreen(this.src)">
             <img src="img/28.png" onclick="openFullscreen(this.src)">
         </div>
+
         <p>2026年3月</p>
-        <div class="section media-row hide-scrollbar" id="gallery">
+        <div class="section media-row hide-scrollbar">
             <img src="img/00023.jpg" onclick="openFullscreen(this.src)">
             <img src="img/00024.jpg" onclick="openFullscreen(this.src)">
             <img src="img/00025.jpg" onclick="openFullscreen(this.src)">
@@ -108,41 +128,38 @@
             <img src="img/00032.jpg" onclick="openFullscreen(this.src)">
             <img src="img/00033.jpg" onclick="openFullscreen(this.src)">
         </div>
+
         <div id="fullscreen" class="fullscreen" onclick="closeFullscreen(event)">
-            <img id="fullscreen-img" src="" alt="全屏">
+            <img id="fullscreen-img" src="">
         </div>
     </div>
 
     <script>
-        function verifyAge() {
-            const age = parseInt(document.getElementById("age-input").value);
-            const tip = document.getElementById("tip");
-            if (isNaN(age)) { tip.textContent = "请输入数字"; tip.style.display = "block"; return; }
-            if (age < 10086) { tip.textContent = "小鱼，年龄太小"; tip.style.display = "block"; return; }
-            if (age >= 20000) { tip.textContent = "大鱼，年龄太大"; tip.style.display = "block"; return; }
-            document.getElementById("age-verification-overlay").style.display = "none";
-            document.getElementById("main-content").style.display = "block";
+        function verifyAge(){
+            const e=parseInt(document.getElementById("age-input").value),
+            t=document.getElementById("age-tooltip");
+            if(isNaN(e))return t.textContent="请输入数字",t.style.display="block",void 0;
+            if(e<10086)return t.textContent="小鱼，年龄太小",t.style.display="block",void 0;
+            if(e>=20000)return t.textContent="大鱼，年龄太大",t.style.display="block",void 0;
+            document.getElementById("age-verification-overlay").style.display="none",
+            document.getElementById("main-content").style.display="block";
         }
 
-        function openFullscreen(src) {
-            const fullscreen = document.getElementById("fullscreen");
-            const img = document.getElementById("fullscreen-img");
-            img.src = src;
-            fullscreen.classList.add("active");
-            document.body.style.overflow = "hidden";
+        function openFullscreen(e){
+            const t=document.getElementById("fullscreen"),
+            i=document.getElementById("fullscreen-img");
+            i.src=e,t.classList.add("active"),
+            document.body.style.overflow="hidden";
         }
 
-        function closeFullscreen(e) {
-            if (e.target !== document.getElementById("fullscreen")) return;
-            const fullscreen = document.getElementById("fullscreen");
-            fullscreen.classList.remove("active");
-            document.body.style.overflow = "";
+        function closeFullscreen(e){
+            e.target!==document.getElementById("fullscreen")||
+            (document.getElementById("fullscreen").classList.remove("active"),
+            document.body.style.overflow="");
         }
 
-        // 监听回车
-        document.getElementById("age-input").addEventListener("keypress", (e) => {
-            if (e.key === "Enter") verifyAge();
-        });
+        document.getElementById("age-input").addEventListener("keypress",
+        e=>{"Enter"===e.key&&verifyAge()});
     </script>
 </body>
 </html>
