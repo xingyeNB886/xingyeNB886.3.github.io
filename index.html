@@ -1,174 +1,482 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>星野-蔚蓝档案美图分享</title>
-    <link rel="manifest" href="/manifest.json?t=12345">
-    <meta name="theme-color" content="#000000">
-    <link rel="icon" href="/img/00.png" sizes="192x192">
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box;}
-        #main-content{display:none;}
-        body{background:#000;color:#fff;font-family:Arial,sans-serif;overflow-x:hidden;}
+    
+    
+    
+    <title>Photos</title>
         
-        #age-verification-overlay{
-            position:fixed;top:0;left:0;width:100%;height:100%;
-            background:rgba(0,0,0,0.95);display:flex;
-            justify-content:center;align-items:center;z-index:9999;
-        }
-        .age-modal{
-            background:#111;padding:30px;border-radius:12px;
-            border:1px solid #333;text-align:center;width:90%;max-width:400px;
-        }
-        .age-modal input{
-            width:100%;padding:12px;margin:15px 0;
-            background:#222;border:1px solid #444;border-radius:8px;
-            color:#fff;font-size:18px;text-align:center;
-        }
-        .age-modal button{
-            width:100%;padding:12px;border:none;border-radius:8px;
-            background:#007bff;color:#fff;font-size:16px;cursor:pointer;
-        }
-        .age-modal button:hover{background:#0056b3;}
-        #age-tooltip{color:#ff4444;margin-top:10px;font-size:14px;display:none;}
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json?t=12345">
 
-        #top-image-container{text-align:center;margin:1em 0;}
-        #top-image{
-            object-fit:cover;display:block;margin:0 auto;
-            width:auto;height:calc(9/16 * 22vh);border-radius:10px;
-        }
-        @media (min-width:1024px){#top-image{height:calc(9/16 * 36vh);}}
+    <!-- Theme color -->
+    <meta name="theme-color" content="#000000">
 
-        .section{padding:5px 20px;}
-        p{text-indent:2em;margin:5px 0;}
-        .media-row{display:flex;overflow-x:auto;padding:5px 0;gap:10px;cursor:grab;}
-        .media-row img{
-            width:calc(100vw / 3.3 - 15px);aspect-ratio:3/4;
-            object-fit:cover;border-radius:5px;cursor:pointer;
-        }
-        @media (min-width:768px){.media-row img{width:calc(100vw / 4.3 - 15px);}}
-        @media (min-width:1024px){.media-row img{width:calc(100vw / 6.3 - 15px);}}
-        @media (min-width:1280px){.media-row img{width:calc(100vw / 10 - 15px);}}
+    <!-- Icons for browser tab -->
+    <link rel="icon" href="/img/00.png" sizes="192x192">
+    
 
-        .fullscreen{
-            display:none;position:fixed;top:0;left:0;
-            width:100%;height:100%;background:rgba(0,0,0,0.9);
-            justify-content:center;align-items:center;z-index:10000;
-        }
-        .fullscreen img,.fullscreen video{
-            max-width:95%;max-height:95%;object-fit:contain;border-radius:5px;
-        }
-        .fullscreen.active{display:flex;animation:fadeIn .3s forwards;}
-        .fullscreen.inactive{display:flex;animation:fadeOut .3s forwards;}
+    
+    <style>
+    
+        body {
+            
+background-color: #000000; /* 纯黑 */
 
-        .hide-scrollbar{-ms-overflow-style:none;scrollbar-width:none;}
-        .hide-scrollbar::-webkit-scrollbar{display:none;}
-        @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-        @keyframes fadeOut{from{opacity:1;}to{opacity:0;}}
+
+
+
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        
+ /* 顶部图片样式 */
+        #top-image-container {
+            text-align: center;
+            margin: 1em 0; /* 距离顶部和下方内容保持1行的间隙 */
+        }
+
+        #top-image {
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+            width: auto;
+            height: 9/16; /* 固定比例 */
+            border-radius: 10px; /* 添加10px圆角 */
+        }
+
+        /* 手机竖屏 */
+        @media (max-width: 767px) {
+            #top-image {
+                height: 22vh; /* 高度占屏幕的1/4 */
+                width: calc(22vh * 2); /* 根据高度调整宽度 */
+                border-radius: 10px; /* 保持圆角 */
+            }
+        }
+
+        /* iPad竖屏 */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            #top-image {
+                height: 22vh; /* 高度占屏幕的1/3 */
+                width: calc(22vh * 2); /* 根据高度调整宽度 */
+                border-radius: 10px; /* 保持圆角 */
+            }
+        }
+
+        /* iPad横屏 */
+        @media (min-width: 1024px) and (max-width: 1279px) {
+            #top-image {
+                height: 36vh; /* 高度占屏幕的1/2 */
+                width: calc(36vh * 2.5); /* 根据高度调整宽度 */
+                border-radius: 10px; /* 保持圆角 */
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+        .section {
+            padding: 5px 20px;
+        }
+
+        p {
+            text-indent: 2em;
+            margin: 5px 0;
+        }
+
+        .media-row {
+            display: flex;
+            overflow-x: auto;
+            padding: 5px 0;
+            gap: 10px;
+            cursor: grab;
+        }
+
+        .media-row img, .media-row .video-container {
+            width: calc(100vw / 3.3 - 15px);
+            aspect-ratio: 3 / 4;  /* 使用 aspect-ratio 来保持宽高比 */
+            object-fit: cover;
+            object-position: center center; /* 垂直和水平都居中裁剪 */
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) { /* iPad竖屏 */
+            .media-row img, .media-row .video-container {
+                width: calc(100vw / 4.3 - 15px);
+                height: calc((100vw / 4.3 - 15px) * 4 / 3);
+            }
+        }
+
+        @media (min-width: 1024px) and (max-width: 1279px) { /* iPad横屏 */
+            .media-row img, .media-row .video-container {
+                width: calc(100vw / 6.3 - 15px);
+                height: calc((100vw / 6.3 - 15px) * 4 / 3);
+            }
+        }
+
+        @media (min-width: 1280px) { /* 电脑 */
+            .media-row img, .media-row .video-container {
+                width: calc(100vw / 10 - 15px);
+                height: calc((100vw / 10 - 15px) * 4 / 3);
+            }
+        }
+
+        .video-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .video-container video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .fullscreen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+.fullscreen img, .fullscreen video {
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain; /* 保持图像/视频比例，并适应容器 */
+    border-radius: 5px;
+}
+
+
+
+
+        .fullscreen.active {
+            display: flex;
+            animation: fadeIn 0.3s forwards;
+        }
+
+        .fullscreen.inactive {
+            animation: fadeOut 0.3s forwards;
+            display: flex;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes fadeOut {
+            from {opacity: 1;}
+            to {opacity: 0;}
+        }
     </style>
 </head>
 <body>
-    <div id="age-verification-overlay">
-        <div class="age-modal">
-            <h2>身份验证</h2>
-            <p>请输入年龄（10086 ≤ 年龄 < 20000）</p>
-            <input type="number" id="age-input" placeholder="输入年龄">
-            <div id="age-tooltip"></div>
-            <button onclick="verifyAge()">确认</button>
-        </div>
-    </div>
+    <div id="top-image-container">
+    <img id="top-image" src="img/0.png" alt="顶部图片">
+</div>
+<p>你最爱的</p><div class='section media-row hide-scrollbar'>
+<img data-src='page/00001.jpg' class='lazyload' onclick='openFullscreen("video/00001.mp4", true)'>
+<img data-src='page/00002.jpg' class='lazyload' onclick='openFullscreen("video/00002.mp4", true)'>
+<img data-src='page/00003.jpg' class='lazyload' onclick='openFullscreen("video/00003.mp4", true)'>
 
-    <div id="main-content">
-        <div id="top-image-container"><img id="top-image" src="img/0.png"></div>
-        <p>你最爱的</p>
-        <div class='section media-row hide-scrollbar'>
-            <img 
-    data-src='page/00003.jpg' 
-    class='lazyload' 
-    onclick='openFullscreen(this.dataset.src.replace("page", "video").replace(".jpg", ".mp4"), true)'
->
+<img data-src='img/00001.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00002.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00003.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00004.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
 
-            <img data-src='page/00002.jpg' class='lazyload' onclick='openFullscreen("video/2.mp4", true)'>
-            <img data-src='page/00003.jpg' class='lazyload' onclick='openFullscreen("video/3.mp4", true)'>
-        <p>作者推荐</p>
-        <div class="section media-row hide-scrollbar">
-            <img src="img/1.png" onclick="openFullscreen(this.src)">
-            <img src="img/2.png" onclick="openFullscreen(this.src)">
-            <img src="img/3.png" onclick="openFullscreen(this.src)">
-            <img src="img/4.png" onclick="openFullscreen(this.src)">
-            <img src="img/5.png" onclick="openFullscreen(this.src)">
-            <img src="img/6.png" onclick="openFullscreen(this.src)">
-            <img src="img/7.png" onclick="openFullscreen(this.src)">
-            <img src="img/8.png" onclick="openFullscreen(this.src)">
-            <img src="img/9.png" onclick="openFullscreen(this.src)">
-            <img src="img/10.png" onclick="openFullscreen(this.src)">
-            <img src="img/11.png" onclick="openFullscreen(this.src)">
-            <img src="img/12.png" onclick="openFullscreen(this.src)">
-            <img src="img/13.png" onclick="openFullscreen(this.src)">
-            <img src="img/14.png" onclick="openFullscreen(this.src)">
-            <img src="img/15.png" onclick="openFullscreen(this.src)">
-            <img src="img/16.png" onclick="openFullscreen(this.src)">
-            <img src="img/17.png" onclick="openFullscreen(this.src)">
-            <img src="img/18.png" onclick="openFullscreen(this.src)">
-            <img src="img/19.png" onclick="openFullscreen(this.src)">
-            <img src="img/20.png" onclick="openFullscreen(this.src)">
-            <img src="img/21.png" onclick="openFullscreen(this.src)">
-            <img src="img/22.png" onclick="openFullscreen(this.src)">
-            <img src="img/23.png" onclick="openFullscreen(this.src)">
-            <img src="img/24.png" onclick="openFullscreen(this.src)">
-            <img src="img/25.png" onclick="openFullscreen(this.src)">
-            <img src="img/26.png" onclick="openFullscreen(this.src)">
-            <img src="img/27.png" onclick="openFullscreen(this.src)">
-            <img src="img/28.png" onclick="openFullscreen(this.src)">
-        </div>
+<img data-src='img/00005.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00006.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00007.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00008.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00009.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00010.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
 
-        <p>2026年3月</p>
-        <div class="section media-row hide-scrollbar">
-            <img src="img/00023.jpg" onclick="openFullscreen(this.src)">
-            <img src="img/00024.jpg" onclick="openFullscreen(this.src)">
-            <img src="img/00025.jpg" onclick="openFullscreen(this.src)">
-            <img src="img/00026.jpg" onclick="openFullscreen(this.src)">
-            <img src="img/00027.jpg" onclick="openFullscreen(this.src)">
-            <img src="img/00028.jpg" onclick="openFullscreen(this.src)">
-            <img src="img/00029.jpg" onclick="openFullscreen(this.src)">
-            <img src="img/00030.jpg" onclick="openFullscreen(this.src)">
-            <img src="img/00031.jpg" onclick="openFullscreen(this.src)">
-            <img src="img/00032.jpg" onclick="openFullscreen(this.src)">
-            <img src="img/00033.jpg" onclick="openFullscreen(this.src)">
-        </div>
+</div>
 
-        <div id="fullscreen" class="fullscreen" onclick="closeFullscreen(event)">
-            <img id="fullscreen-img" src="">
-        </div>
-    </div>
 
-    <script>
-        function verifyAge(){
-            const e=parseInt(document.getElementById("age-input").value),
-            t=document.getElementById("age-tooltip");
-            if(isNaN(e))return t.textContent="请输入数字",t.style.display="block",void 0;
-            if(e<10086)return t.textContent="小鱼，年龄太小",t.style.display="block",void 0;
-            if(e>=20000)return t.textContent="大鱼，年龄太大",t.style.display="block",void 0;
-            document.getElementById("age-verification-overlay").style.display="none",
-            document.getElementById("main-content").style.display="block";
+<p>风景</p><div class='section media-row hide-scrollbar'>
+
+<img data-src='img/00011.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00012.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00013.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00014.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+
+<img data-src='img/00015.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00016.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00017.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+
+<img data-src='img/00018.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00019.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00020.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00021.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00022.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+</div>
+
+
+<p>七月</p><div class='section media-row hide-scrollbar'>
+<img data-src='img/00023.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00024.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00025.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00026.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00027.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00028.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00029.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00030.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00031.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00032.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00033.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+</div>
+
+<p>六月</p><div class='section media-row hide-scrollbar'>
+
+<img data-src='img/00034.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00035.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+day13<img data-src='img/00036.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00037.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00038.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00039.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+<img data-src='img/00040.jpg' class='lazyload' onclick='openFullscreen(this.src)'>
+
+</div>
+
+
+
+<div id="fullscreen" class="fullscreen" onclick="closeFullscreen(event)">
+    <img id="fullscreen-image" src="" alt="fullscreen">
+    <video id="fullscreen-video" controls></video>
+
+</div>
+
+
+
+<script>
+    let currentIndex = 0;
+let mediaItems = [];
+let isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints;
+
+
+    
+    
+    // 打开全屏显示图片或视频
+    function openFullscreen(src, isVideo = false, index = 0) {
+        currentIndex = index;  // 记录当前的索引
+        const fullscreen = document.getElementById('fullscreen');
+        const img = document.getElementById('fullscreen-image');
+        const video = document.getElementById('fullscreen-video');
+
+        document.body.style.overflow = 'hidden';  // 禁用网页滚动
+
+        if (isVideo) {
+            img.style.display = 'none';
+            video.style.display = 'block';
+            video.src = src;
+            video.play();
+        } else {
+            video.style.display = 'none';
+            img.style.display = 'block';
+            img.src = src;
         }
 
-        function openFullscreen(e){
-            const t=document.getElementById("fullscreen"),
-            i=document.getElementById("fullscreen-img");
-            i.src=e,t.classList.add("active"),
-            document.body.style.overflow="hidden";
-        }
+        fullscreen.classList.remove('inactive');
+        fullscreen.classList.add('active');
+    }
 
-        function closeFullscreen(e){
-            e.target!==document.getElementById("fullscreen")||
-            (document.getElementById("fullscreen").classList.remove("active"),
-            document.body.style.overflow="");
-        }
+    // 关闭全屏
+    function closeFullscreen(event) {
+        const fullscreen = document.getElementById('fullscreen');
+        const img = document.getElementById('fullscreen-image');
+        const video = document.getElementById('fullscreen-video');
 
-        document.getElementById("age-input").addEventListener("keypress",
-        e=>{"Enter"===e.key&&verifyAge()});
-    </script>
+        // 点击视频不关闭
+        if (event.target !== fullscreen) return;
+
+        fullscreen.classList.remove('active');
+        fullscreen.classList.add('inactive');
+
+        document.body.style.overflow = '';  // 恢复网页滚动
+
+        setTimeout(() => {
+            fullscreen.classList.remove('inactive');
+            img.src = '';
+            video.pause();
+            video.src = '';
+        }, 300);
+    }
+
+    // 切换到上一张或下一张
+function switchMedia(step) {
+    currentIndex += step;
+
+    if (currentIndex < 0) {
+        currentIndex = mediaItems.length - 1; // 回到最后一张
+    } else if (currentIndex >= mediaItems.length) {
+        currentIndex = 0; // 回到第一张
+    }
+
+    const currentItem = mediaItems[currentIndex];
+    const dataSrc = currentItem.getAttribute('data-src');
+
+    if (dataSrc.includes('page')) {  // 如果路径中包含 'page'，则认为是视频封面
+        const videoSrc = dataSrc.replace('page', 'video').replace('.jpg', '.mp4');  // 替换路径以找到视频
+        openFullscreen(videoSrc, true, currentIndex);  // 显示视频
+    } else {  // 否则认为是普通图片
+        openFullscreen(dataSrc, false, currentIndex);  // 显示图片
+    }
+}
+
+
+    // 懒加载图片
+    document.addEventListener("DOMContentLoaded", function() {
+        let lazyloadImages = document.querySelectorAll(".lazyload");
+        let imageObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    let image = entry.target;
+                    image.src = image.dataset.src;
+                    image.classList.remove("lazyload");
+                    imageObserver.unobserve(image);
+                }
+            });
+        });
+
+        lazyloadImages.forEach(function(image) {
+            imageObserver.observe(image);
+        });
+
+        // 获取所有的图片和视频元素
+        mediaItems = Array.from(document.querySelectorAll('.media-row img, .media-row .video-container'));
+
+        // 为每个图片和视频添加点击事件
+ mediaItems.forEach((item, index) => {
+    if (item.tagName === 'IMG') {
+        const dataSrc = item.getAttribute('data-src');
+        if (dataSrc.includes('page')) {  // 判断是否是视频封面
+            const videoSrc = dataSrc.replace('page', 'video').replace('.jpg', '.mp4');  // 替换路径
+            item.addEventListener('click', () => openFullscreen(videoSrc, true, index));  // 显示视频
+        } else {
+            item.addEventListener('click', () => openFullscreen(dataSrc, false, index));  // 显示图片
+        }
+    }
+});
+
+
+        // 键盘左右键监听
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('fullscreen').classList.contains('active')) {
+                if (e.key === 'ArrowRight') {
+                    switchMedia(1); // 下一张
+                } else if (e.key === 'ArrowLeft') {
+                    switchMedia(-1); // 上一张
+                }
+            }
+        });
+
+        // 移动端滑动切换图片/视频
+if (isTouchDevice) {
+    let startX;
+    const fullscreen = document.getElementById('fullscreen');
+    const img = document.getElementById('fullscreen-image'); // 获取全屏显示的图片
+
+    fullscreen.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+    });
+
+    fullscreen.addEventListener('touchmove', (e) => {
+    // 只处理单点触控
+    if (e.touches.length !== 1) return;
+
+    if (!startX) return;
+
+    const touchX = e.touches[0].clientX;
+    const diffX = touchX - startX;  // 计算滑动距离
+
+    if (Math.abs(diffX) > 60) {
+        if (diffX < 0) {
+            slideImage(1);  // 向右滑动，显示前一张
+        } else {
+            slideImage(-1);   // 向左滑动，显示后一张
+        }
+        startX = null;  // 重置起始点
+    }
+    
+    });
+
+    fullscreen.addEventListener('touchend', () => {
+        startX = null;  // 滑动结束后重置
+    });
+
+    // 添加平移图片效果的函数
+// 添加平移图片效果的函数
+// 添加平移图片效果的函数
+function slideImage(direction) {
+    // 开始平移当前图片
+    img.style.transition = 'transform 0.5s ease';  // 让当前图片平移的动画稍长一点（比如0.4秒）
+    img.style.transform = `translateX(${-direction * 100}%)`;  // 当前图片平移出屏幕
+
+    // 设置切换图片的黑色间隙时间
+    setTimeout(() => {
+        switchMedia(direction);  // 切换图片
+
+        // 立即准备下一张图片从另一侧进入
+        img.style.transition = 'none';  // 先禁用过渡效果
+        img.style.transform = `translateX(${direction * 100}%)`;  // 新图片从另一侧准备进入
+
+        // 几乎立即重新启用动画，让新图片平滑进入屏幕
+        setTimeout(() => {
+            img.style.transition = 'transform 1.2s ease';  // 再次启用平滑动画，平移时间保持为0.4秒
+            img.style.transform = 'translateX(0)';  // 新图片平移回中心
+        }, 0);  // 设置非常短的延迟来切换新图片进入
+    }, 450);  // 黑色间隙的持续时间可以单独控制，比如100毫秒
+}
+
+
+}
+
+
+    });
+
+
+</script>
 </body>
 </html>
+
